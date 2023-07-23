@@ -168,6 +168,32 @@ select * from book order by price DESC, publisher ASC;
 
 3-15 고객이 주문한 도서의 총 판매액을 구하시오.
 
+#### 결과 테이블이 별도의 이름 없이 'SUM(saleprice)'라고 출력된다.
+
 ```
 select SUM(saleprice) from Orders;
 ```
+
+3-16 2번 김연아 고객이 주문한 도서의 총 판매액을 구하시오.
+
+#### AS 별칭을 지칭하는 'AS'키워드를 사용하여 열 이름을 부여한다.
+
+```
+select SUM(saleprice) AS 총매출 from Orders where custid=2;
+```
+
+---
+
+\*TIP
+<br>
+
+- 최근 버전의 DBMS에서는 AS를 생략할 수 있다.
+- 속성이름의 별칭 중간에 공벡을 넣어야 할 경우 끈 따옴표를 사용한다.
+
+```
+select SUM(saleprice) 총매출 from Orders where custid=2;
+select SUM(saleprice) "전체 매출" from Orders;
+
+```
+
+---
