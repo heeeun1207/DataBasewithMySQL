@@ -159,3 +159,15 @@ select * from book order by price DESC, publisher ASC;
 ```
 
 ## 집계 함수와 GROUP BY
+
+앞에서 고객이 필요로 하는 질의를 중심으로 살펴보았다면,
+<br> '운영자'가 필요로 하는 질의를 중심으로 SQL 기능을 살펴보자.
+<br> 도서 판매 총액, 일별 판매량 등 구체적인 집계 내용을 위한 집계함수 사용하기.
+
+### 집계합수\_도서판매액의 합계를 알고 싶다.
+
+3-15 고객이 주문한 도서의 총 판매액을 구하시오.
+
+```
+select SUM(saleprice) from Orders;
+```
