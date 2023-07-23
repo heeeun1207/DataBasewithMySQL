@@ -31,8 +31,30 @@ select distinct publisher from book;
 
 ### WHERE조건
 
-3-4 가격이 20,000원 미만인 도서를 검색하시오.
+- 비교
+  3-4 가격이 20,000원 미만인 도서를 검색하시오.
+  <br> \*숫자의 경우 천 단위를 표시하는 콤마(,) 기호를 사용하지 않는다.
 
 ```
 select * from book where price <20000;
+```
+
+- 범위
+  3-5 가격이 10,000원 이상 20,000이하인 도서를 검색하시오.
+  (논리 연산자인 AND를 사용하여 다음과 같이 사용할 수 있다.)
+
+```
+select * from book where price between 10000 and 20000;
+select * from book where price >=10000 and price <=20000;
+
+```
+
+- 집합
+  WHERE절에서 두 개 이상의 값을 비교하려면 IN, NOT IN 연산자를 사용한다.
+  IN => 집합의 원소인진 판단하는 연산자
+  3-6 출판사가 '굿스포츠' 혹은 '대한미디어'인 도서를 검색하시오.
+
+```
+select * from book where publisher IN('굿스포츠','대한미디어');
+select * from book where publisher NOT IN('굿스포츠','대한미디어');
 ```
