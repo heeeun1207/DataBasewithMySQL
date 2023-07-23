@@ -58,8 +58,10 @@ show tables;
 exit;
 ```
 
+```
 /_ 이름: demo_madang.sql _/
 /_ 설명 _/
+
 
 /_ root 계정으로 접속, madang 데이터베이스 생성, madang 계정 생성 _/
 /_ MySQL Workbench에서 초기화면에서 +를 눌러 root connection을 만들어 접속한다. _/
@@ -83,7 +85,7 @@ price INTEGER
 );
 
 CREATE TABLE Customer (
-custid INTEGER PRIMARY KEY,  
+custid INTEGER PRIMARY KEY,
  name VARCHAR(40),
 address VARCHAR(50),
 phone VARCHAR(20)
@@ -111,7 +113,7 @@ INSERT INTO Book VALUES(9, '올림픽 이야기', '삼성당', 7500);
 INSERT INTO Book VALUES(10, 'Olympic Champions', 'Pearson', 13000);
 
 INSERT INTO Customer VALUES (1, '박지성', '영국 맨체스타', '000-5000-0001');
-INSERT INTO Customer VALUES (2, '김연아', '대한민국 서울', '000-6000-0001');  
+INSERT INTO Customer VALUES (2, '김연아', '대한민국 서울', '000-6000-0001');
 INSERT INTO Customer VALUES (3, '장미란', '대한민국 강원도', '000-7000-0001');
 INSERT INTO Customer VALUES (4, '추신수', '미국 클리블랜드', '000-8000-0001');
 INSERT INTO Customer VALUES (5, '박세리', '대한민국 대전', NULL);
@@ -138,3 +140,4 @@ price INTEGER
 INSERT INTO Imported_Book VALUES(21, 'Zen Golf', 'Pearson', 12000);
 INSERT INTO Imported_Book VALUES(22, 'Soccer Skills', 'Human Kinetics', 15000);
 commit;
+```
