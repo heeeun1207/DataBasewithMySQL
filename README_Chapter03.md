@@ -22,9 +22,17 @@ select * from book;
 
 ```
 
-3-3 도서 테이블에 있는 모든 출판사를 검색하시오
+3-3 도서 테이블에 있는 모든 출판사를 검색하시오.
 <br> \*단 중복을 제거하시오.
 
 ```
 select distinct publisher from book;
+```
+
+### WHERE조건
+
+3-4 가격이 20,000원 미만인 도서를 검색하시오.
+
+```
+select * from book where price <20000;
 ```
