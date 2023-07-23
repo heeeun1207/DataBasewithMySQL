@@ -88,3 +88,21 @@ select * from book where publisher NOT IN('굿스포츠','대한미디어');
 ```
 select bookname,publisher from book where bookname LIKE '축구의 역사';
 ```
+
+### 와일드 문자 사용하기.
+
+#### %임의의 문자열을 대신하는 기호%
+
+3-8 도서이름에 '축구'가 포함된 출판사를 검색하시오.
+
+```
+select bookname,publisher from book where bookname LIKE '%축구%';
+```
+
+#### \_(밑줄기호) 특정 위치에 한 문자만 대신할 경우 사용
+
+3-9 도서이름의 왼쪽 두 번째 위치에 '구'라는 문자열을 갖는 도서를 검색하시오.
+
+```
+select * from book where bookname LIKE '_구%';
+```
