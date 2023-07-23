@@ -116,3 +116,21 @@ select * from book where bookname LIKE '_구%';
 |     []      | 1개의 문자와 일치             | '[0-5]%' : 0-5 사이 숫자로 시작하는 문자열       |
 |     [^]     | 1개의 문자와 불일치           | '[^0-5]%' : 0-5 사이 숫자로 시작하지 않는 문자열 |
 |     \_      | 특정 위치의 1개의 문자와 일치 | '\_구%' : 두 번째 위치에 '구'가 들어가는 문자열  |
+
+- 복합조건
+  <br>
+  WHERE절 - AND, OR, NOT 복합조건 명시하기.
+  <br>
+  3-10 축구에 관한 도서 중 가격이 20,000원 이상인 도서를 검색하시오.
+
+```
+select * from book where bookname LIKE '%축구%' and price >=20000;
+select * from book where price >=20000 and bookname LIKE '%축구%';
+
+```
+
+3-11 출판사가 '굿스포츠' 혹은 '대한미디어'인 도서를 검색하시오.
+
+```
+select * from book where publisher='굿스포츠' OR publisher='대한미디어';
+```
