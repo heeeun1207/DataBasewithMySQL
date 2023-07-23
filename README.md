@@ -19,14 +19,31 @@ mysql -u root -p
 GRANT CREATE ON testdb.* TO 'madang'@'localhost';
 ```
 
-3.권한 변경 사항을 즉시 적용하기 위해 FLUSH PRIVILEGES; 명령을 실행하기
+3. 권한 변경 사항을 즉시 적용하기 위해 FLUSH PRIVILEGES; 명령을 실행하기
 
 ```
 FLUSH PRIVILEGES;
 ```
 
-4.데이터베이스 확인하기
+3-1. 모든 권한 주기
+보안상의 이유로 모든 권한을 부여하는 것은 권장되지 않는다.대신 필요한 권한만 부여하는 것이 좋다.
+
+```
+GRANT ALL PRIVILEGES ON *.* TO 'madang'@'localhost';
+```
+
+4. 데이터베이스 확인하기
 
 ```
 mysql> show databases
+```
+
+5. MySQL에서는 AUTO_INCREMENT로 설정된 컬럼은 PRIMARY KEY 또는 UNIQUE KEY와 함께 정의해야 합니다.
+   이러한 제약 때문에 오류가 발생한 것입니다.
+
+```
+CREATE TABLE test (
+  id smallint unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(20) NOT NULL
+);
 ```
