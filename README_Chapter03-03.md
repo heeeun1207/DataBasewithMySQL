@@ -194,3 +194,22 @@ select SUM(saleprice) "전체 매출" from Orders;
 ```
 
 ---
+
+3-17 고객이 주문한 도서의 총 판매액, 평균값, 최저가, 최고가를 구하시오.
+
+- 집계 함수는 여러 개를 혼합하여 쓸 수 있다.
+
+```
+select SUM(saleprice) Total,AVG(saleprice) Average,MIN(saleprice) min,MAX(saleprice) max from orders;
+```
+
+3-18 마당서점의 도서 판매 건수를 구하시오.
+
+- 집계 함수 COUNT()는 행의 개수를 센다.
+  <br>- () 속성의 이름이 사용되며, 투플의 개수를 센다. \* NULL 값 제외
+  <br>- 예를들어, COUNT(\*) : 전체 투플의 수
+  <br>COUNT(DISNINCT publisher) : 중복제거한 출판사의 수
+
+```
+select COUNT(*) AS "도서 판매 건수" from orders;
+```
