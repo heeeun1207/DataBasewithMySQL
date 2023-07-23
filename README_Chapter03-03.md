@@ -184,16 +184,13 @@ select SUM(saleprice) AS 총매출 from Orders where custid=2;
 
 ---
 
-\*TIP
-<br>
-
-- 최근 버전의 DBMS에서는 AS를 생략할 수 있다.
-- 속성이름의 별칭 중간에 공벡을 넣어야 할 경우 끈 따옴표를 사용한다.
+- TIP
+  - 최근 버전의 DBMS에서는 AS를 생략할 수 있다.
+  - 속성이름의 별칭 중간에 공벡을 넣어야 할 경우 끈 따옴표를 사용한다.
 
 ```
 select SUM(saleprice) 총매출 from Orders where custid=2;
 select SUM(saleprice) "전체 매출" from Orders;
-
 ```
 
 ---
