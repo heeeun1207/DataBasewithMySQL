@@ -206,10 +206,37 @@ select SUM(saleprice) Total,AVG(saleprice) Average,MIN(saleprice) min,MAX(salepr
 3-18 마당서점의 도서 판매 건수를 구하시오.
 
 - 집계 함수 COUNT()는 행의 개수를 센다.
-  <br>- () 속성의 이름이 사용되며, 투플의 개수를 센다. \* NULL 값 제외
+  <br>- () 속성의 이름이 사용되며, 투플의 개수를 센다. ( NULL 값 제외 )
   <br>- 예를들어, COUNT(\*) : 전체 투플의 수
-  <br>COUNT(DISNINCT publisher) : 중복제거한 출판사의 수
+  <br>COUNT(DISNINCT publisher) : 중복을 제거한 출판사의 수
 
 ```
 select COUNT(*) AS "도서 판매 건수" from orders;
+```
+
+### [표3-7] 집계 함수의 종류
+
+| 집계 함수 | 문법                                     | 사용 예    |
+| :-------: | ---------------------------------------- | ---------- |
+|    SUM    | SUM([ALL or DISTINCT] 속성이름)          | SUM(price) |
+|    AVG    | AVG([ALL or DISTINCT] 속성이름)          | AVG(price) |
+|   COUNT   | COUNT([ALL or DISTINCT] 속성이름 or \* ) | COUNT(\*)  |
+|    MAX    | MAX([ALL or DISTINCT] 속성이름)          | MAX(price) |
+|    MIN    | MIN([ALL or DISTINCT] 속성이름)          | MIN(price) |
+
+### GROUP BY\_어느 고객이 얼마나 주문했는지 알고 싶다.
+
+3-19 고객별로 도서의 총 수량과 총 판매액을 구하시오.
+
+```
+select custid, count(*) AS "총 도서수량", SUM(saleprice) AS "총 판매액" from orders group by custid order by custid;
+```
+
+### HAVING 절 GROUP BY 절의 결과 그룹을 제한하는 역할을 한다.
+
+3-20 가격이 8,000원 이상인 도서를 구매한 고객에 대하여 고객별 주문 도서의 총 수량을 구하시오.
+<br>단, 두권 이상 구매한 고객만 구하시오.
+
+```
+select custid,count(*) AS "총 도서수량" from orders where saleprice>=8000 group by custid having count(*)>=2;
 ```
