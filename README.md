@@ -7,20 +7,23 @@
 ### SQL 기초 실습
 
 3-1 모든 도서의 이름과 가격을 검색하시오
+<br>
 3-2-1 모든 도서의 도서번호, 도서이름, 출판사, 가격을 검색하시오.
+<br>
 3-2-2 3-2-1은 모든 열의 이름이므로,
+<br>
 \*(asterisk)만 써주면 열의 이름을 쓰지않고, 편리하게 사용할 수 있다.
 
 ```
 
 select bookname,price from book;
 select bookid,bookname,publisher,price from book;
-select \* from book;
+select * from book;
 
 ```
 
 3-3 도서 테이블에 있는 모든 출판사를 검색하시오
-_단 중복을 제거하시오._
+<br> \*단 중복을 제거하시오.
 
 ```
 select distinct publisher from book;
