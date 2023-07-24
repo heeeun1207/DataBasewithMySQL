@@ -285,3 +285,110 @@ from customer,orders
 where customer.custid=orders.custid
 order by customer.custid;
 ```
+
+3-23 고객의 이름과 고객이 주문한 도서의 판매가격을 검색하시오.
+
+---
+
+#### 여기서 잠깐 열 이름을 표기하는 방법
+
+'테이블 이름: 열 이름' 형식의 표현으로 열 이름이 어느 테이블과 연관되는지 정확히 명시한다.
+
+---
+
+```
+select name,saleprice
+from customer, orders
+where customer.custid=orders.custid;
+```
+
+3-24 고객별로 주문한 모든 도서의 총 판매액을 구하고, 고객별로 정렬하시오.
+
+```
+select name,SUM(saleprice) AS "총 판매액"
+from customer,orders
+where customer.custid=orders.custid
+group by customer.name
+order by customer.name;
+```
+
+3-25 고객의 이름과 고객이 주문한 도서의 이름을 구하시오.
+
+```
+select customer.name, book.bookname
+from customer, orders, book
+where customer.custid=orders.custid and orders.bookid=book.bookid;
+
+```
+
+3-26 가격이 20,000원인 도서를 주문한 고객의 이름과 도서의 이름을 구하시오.
+
+```
+select customer.name, book.bookname
+from customer,orders,book
+where customer.custid=orders.custid and orders.bookid=book.bookid and book.price=20000;
+```
+
+### 외부조인 (outer join)
+
+3-27 도서를 구매하지 않은 고객을 포함하여 고객의 이름과 고객이 주문한 도서의 판매가격을 구하시오.
+
+```
+select customer.name, saleprice
+from customer LEFT OUTER JOIN orders ON customer.custid=orders.custid;
+```
+
+### 부속질의\_SQL 문 내에 또 다른 SQL 문을 작성하기.
+
+- 가격이 가장 비싼 도서의 가격은?
+- 가격을 알고 있다면, 가격이 35,000원인 도서의 이름은?
+
+```
+select MAX(price) from book;
+select bookname AS "가장 비싼 도서" from book where price=35000;
+```
+
+두 질의를 하나의 질의로 작성하기.
+
+3-28 가장 비싼 도서의 이름을 보이시오.
+
+```
+select bookname AS "가장 비싼 도서"
+from book
+where price=(SELECT MAX(price) from book);
+```
+
+- 부속질의 : 또 다른 테이블 결과를 이용하기 위해서 다시 SELECT문을 괄호로 묶은 것
+  <br>- 부속질의는 질의가 중첩되어 있다는 의미에서 중첩질의라고도 한다.
+
+1. 부속질의를 먼저 처리하고,
+   <br>
+2. 전체질의를 처리한다.
+
+3-29 도서를 구매한 적이 있는 고객의 이름을 검색하시오.
+
+```
+select custid from orders;
+select name from customer where custid IN(1,2,3,4);
+select name from customer where custid IN(select custid from orders);
+```
+
+### 세 개 이상의 중첩된 부속질의 처리하기.
+
+3-30 대한미디어에서 출판한 도서를 구매한 고객의 이름을 보이시오.
+
+```
+select name from customer where custid IN
+(select custid from orders where bookid IN
+(select bookid from book where publisher='대한미디어'));
+```
+
+3-31 출판사별로 출판사의 평균 도서 가격보다 비싼 도서를 구하시오.
+
+```
+select b1.price as "평균 보다 비싼 값", b1.bookname as "평균 가격 보다 비싼 도서"
+from book b1
+where b1.price>(select avg(b2.price)
+from book b2
+where b2.publisher=b1.publisher);
+```
