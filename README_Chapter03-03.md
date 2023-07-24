@@ -238,5 +238,28 @@ select custid, count(*) AS "총 도서수량", SUM(saleprice) AS "총 판매액"
 <br>단, 두권 이상 구매한 고객만 구하시오.
 
 ```
-select custid,count(*) AS "총 도서수량" from orders where saleprice>=8000 group by custid having count(*)>=2;
+select custid,count(*) AS "총 도서수량"
+from orders
+where saleprice>=8000
+group by custid
+having count(*)>=2;
 ```
+
+#### 여기서 잠깐
+
+### GROUP BY 절이 포함된 SQL 문의 실행 순서
+
+SQL 문은 실행 순서가 없는 비절차적인(non procedural)언어지만 SQL 문은 내부적으로 실행 순서가 있다.
+
+- GROUP BY, HAVING, ORDER BY 절이 포함된 SQL문 실행 순서 이해하기.
+
+```
+5. select custid, count(*) AS 도서수량
+1. from orders
+2. where saleprice >= 8000
+3. group by custid
+4. having count(*) >1
+6. order by custid;
+```
+
+### 두 개 이상 테이블에서 SQL 질의
