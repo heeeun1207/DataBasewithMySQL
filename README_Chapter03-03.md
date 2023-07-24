@@ -392,3 +392,48 @@ where b1.price>(select avg(b2.price)
 from book b2
 where b2.publisher=b1.publisher);
 ```
+
+---
+
+#### 여기서 잠깐 투플 변수
+
+투플변수(tuple variable) :
+<br>
+테이블 이름이 길거나 한 개의 테이블이 SQL문에 두 번 사용될 때 혼란을 피하기 위해
+<br>
+테이블의 별칭을 붙여 사용한다.
+
+---
+
+### UNION 과 UNION ALL
+
+3-32 대한민국에서 거주하는 고객의 이름과 도서를 주문한 고객의 이름을 보이시오.
+
+```
+select name
+from customer
+where address LIKE '대한민국%'
+UNION
+select name
+from customer
+where custid IN(select custid from orders);
+```
+
+```
+select name
+from customer
+where address LIKE '대한민국%'
+UNION ALL
+select name
+from customer
+where custid IN(select custid from orders);
+```
+
+3- 33 주문이 있는 고객의 이름과 주소를 보이시오.
+
+```
+select name AS "주문이 존재하는 고객의 이름",address
+from customer cs
+where EXISTS
+(select * from orders od where cs.custid=od.custid);
+```
