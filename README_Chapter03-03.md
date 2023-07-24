@@ -263,3 +263,25 @@ SQL 문은 실행 순서가 없는 비절차적인(non procedural)언어지만 S
 ```
 
 ### 두 개 이상 테이블에서 SQL 질의
+
+- 조인(join)
+- 부속질의 (subquery)
+
+### 조인\_2개의 테이블을 합체해보자.
+
+- 두 테이블을 아무런 조건을 주지않고 select 시키면 관계대수가 카티전 프로덕트 연산이 된다.
+  <br> - 카티전 프로덕트 : 조건이 없는 테이블 간의 조인
+
+```
+select *
+from cunstomer,orders;
+```
+
+3-22 고객과 고객의 주문에 관한 데이터를 고객별로 정렬하여 보이시오.
+
+```
+select *
+from customer,orders
+where customer.custid=orders.custid
+order by customer.custid;
+```
