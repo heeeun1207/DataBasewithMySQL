@@ -19,3 +19,32 @@ CREATE TABLE 테이블이름
     [ON DELETE {CASECADE | SET NULL}]
 )
 ```
+
+3-34 다음과 같은 속성을 가진 NewBook 테이블을 생성하시오.
+<br>
+정수형은 INTEGER를 사용하며 문자형은 가변형 문자타입인 VARCHAR를 사용한다.
+<br>
+bookid(도서번호) - INTEGER
+bookname(도서이름) - VARCHAR(20)
+publisher(출판사) - VARCHAR(20)
+price(가격) - INTEGER
+
+```
+CREATE TABLE NewBook (
+  bookid INTEGER,
+  bookname VARCHAR(20),
+  publisher VARCHAR(20),
+  price INTEGER);
+```
+
+---
+
+#### 여기서 잠깐 => 문자형 데이터 타입 - CHAR, VARCHAR
+
+CHAR(n)은 n바이트를 가진 문자형타입.
+<br> 저장되는 문자의 길이가 n보다 작으면 나머지는 공백으로 채워서 n바이트를 만들어 저장한다.
+<br>
+VARCHAR 타입은 마찬가지로 n바이트를 가진 문자형타입이나,
+<br>\*저장되는 문자의 길이만큼만 기억장소를 차지하는 가변형이다.
+
+---
