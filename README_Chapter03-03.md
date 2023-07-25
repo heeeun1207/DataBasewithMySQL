@@ -407,7 +407,7 @@ where b2.publisher=b1.publisher);
 
 ### UNION 과 UNION ALL
 
-3-32 대한민국에서 거주하는 고객의 이름과 도서를 주문한 고객의 이름을 보이시오.
+3-32 대한민국에서 거주하는 고객의 이름과 & 도서를 주문한 고객의 이름을 보이시오.
 
 ```
 select name
@@ -436,4 +436,36 @@ select name AS "주문이 존재하는 고객의 이름",address
 from customer cs
 where EXISTS
 (select * from orders od where cs.custid=od.custid);
+```
+
+#### 여기서 잠깐 MINUS, INTERSECT 연산자
+
+-MySQL 에는 MINUS, INTERSECT 연산자가 없으므로 NOT IN, IN 연산자를 사용한다.
+
+3-32 대한민국에 거주하는 사랍과 도서를 주문한 사람 합집합을 구하는문제였다.
+<br>
+3-32-1 MINUS 연산을 수행한 '대한민국에서 거주하는 고객의 이름에서 도서를 주문한 고객의 이름을 빼고 보이시오.'
+<br>질의를 NOT IN 을 사용해보기.
+
+```
+select name
+from customer
+where address LIKE '대한민국%' and name NOT IN(
+  select name
+  from customer
+  where custid IN(select custid from orders));
+```
+
+#### 교집합
+
+3-32-2 INTERSECT 연산을 수행한 '대한민국에서 거주하는 고객 중 도서를 주문한 고객의 이름을 보이시오.'
+<br> 질의를 IN 연산자 사용해보기.
+
+```
+select name
+from customer
+where address LIKE '대한민국%' AND name IN(
+  select name
+  from customer
+  where custid IN(select custid from orders));
 ```
