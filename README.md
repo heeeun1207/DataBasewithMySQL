@@ -1,5 +1,7 @@
 # DB_prac
 
+## 느낀점 : ERD 꼭 먼저 계획하기.
+
 DBMS: MySQL
 
 ---
