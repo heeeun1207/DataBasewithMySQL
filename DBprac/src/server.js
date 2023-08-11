@@ -29,10 +29,11 @@ app.use(session({
 app.get('/', (req, res) => {
   // 게시글 정보와 작성자 이름을 가져오는 SQL 쿼리
   const query = `
-    SELECT posts.*, users.username
-    FROM posts
-    INNER JOIN users ON posts.user_id = users.id
-  `;
+  SELECT posts.*, users.username
+  FROM posts
+  INNER JOIN users ON posts.user_id = users.user_id
+`;
+
   db.query(query, (err, results) => {
     if (err) throw err;
     // 여기서 사용자 정보 조회 및 설정

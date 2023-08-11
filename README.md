@@ -120,3 +120,29 @@ SELECT comments.\*, users.username
 FROM comments
 INNER JOIN users ON comments.user_id = users.user_id;
 ```
+
+## 02 Table 수정
+
+```
+ALTER TABLE users
+ADD COLUMN password VARCHAR(255) NOT NULL AFTER username,
+ADD COLUMN email VARCHAR(255) NOT NULL AFTER password;
+
+```
+
+```
+- 이전에 존재하던 comments 테이블 삭제
+DROP TABLE IF EXISTS comments;
+
+- comments 테이블 재생성
+CREATE TABLE comments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name TEXT,
+    user_id INT,
+    post_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (post_id) REFERENCES posts(post_id)
+);
+
+
+```
