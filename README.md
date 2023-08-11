@@ -18,60 +18,60 @@ npm install express-session
 
 ```
 
-## 1. Table: posts 해당 테이블의 스키마를 수정하여 새로운 열을 정의
+## 1. Table : posts 생성
 
 ```
-ALTER TABLE posts
-ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+CREATE TABLE posts (
+  post_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title varchar(255) NOT NULL,
+  content text NOT NULL,
+  user_id int,
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
 
-```
-
-## 1-2 posts 테이블에서 'id' 열을 제거하고 대신 'post_id' 열을 PRIMARY KEY로 설정
-
-```
-ALTER TABLE posts
-DROP PRIMARY KEY,
-DROP COLUMN id,
-ADD COLUMN post_id INT AUTO_INCREMENT PRIMARY KEY FIRST;
 
 ```
 
-| Field      | Type         | Null | Key | Default           | Extra             |
-| ---------- | ------------ | ---- | --- | ----------------- | ----------------- |
-| id         | int          | NO   | PRI | NULL              | auto_increment    |
-| title      | varchar(255) | NO   |     | NULL              |                   |
-| content    | text         | NO   |     | NULL              |                   |
-| created_at | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+최종
+| Field | Type | Null | Key | Default | Extra |
+| ------- | ------------ | ---- | --- | ------- | -------------- |
+| post_id | int | NO | PRI | NULL | auto_increment |
+| title | varchar(255) | NO | | NULL | |
+| content | text | NO | | NULL | |
+| user_id | int | YES | | NULL | |
 
 ## 2. Table: users 외래 키 제약 조건(Foreign Key Constraints)은 참조하는 테이블 생성
 
 ```
 CREATE TABLE users (
-  user_id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  user_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  email varchar(255) NOT NULL
 );
 
 ```
 
-| Field      | Type         | Null | Key | Default           | Extra             |
-| ---------- | ------------ | ---- | --- | ----------------- | ----------------- |
-| user_id    | int          | NO   | PRI | NULL              | auto_increment    |
-| username   | varchar(255) | NO   |     | NULL              |                   |
-| created_at | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+최종
+| Field | Type | Null | Key | Default | Extra |
+|------------|--------------|------|-----|-------------------|-------------------|
+| user_id | int | NO | PRI | NULL | auto_increment |
+| username | varchar(255) | NO | | NULL | |
+| password | varchar(255) | NO | | NULL | |
+| email | varchar(255) | NO | | NULL | |
 
 ## 3. Table: comments 테이블 생성
 
 ```
 CREATE TABLE comments (
-  comment_id INT AUTO_INCREMENT PRIMARY KEY,
-  content TEXT NOT NULL,
-  post_id INT,
-  user_id INT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name text,
+  user_id int,
+  post_id int,
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (post_id) REFERENCES posts(post_id)
 );
+
 
 ```
 
@@ -81,70 +81,12 @@ CREATE TABLE comments (
 SHOW COLUMNS FROM comments;
 ```
 
-| Field      | Type      | Null | Key | Default           | Extra             |
-| ---------- | --------- | ---- | --- | ----------------- | ----------------- |
-| comment_id | int       | NO   | PRI | NULL              | auto_increment    |
-| content    | text      | NO   |     | NULL              |                   |
-| post_id    | int       | YES  | MUL | NULL              |                   |
-| user_id    | int       | YES  | MUL | NULL              |                   |
-| created_at | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
-
-## 8/11 Table 수정
-
-- 'posts' 테이블에 'user_id' 열 추가
-
 ```
-ALTER TABLE posts
-ADD COLUMN user_id INT;
-```
-
-- 'comments' 테이블의 외래 키 수정
-
-```
-ALTER TABLE comments
-DROP FOREIGN KEY comments_ibfk_1; -- 기존의 외래 키 제거
-ALTER TABLE comments
-ADD FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE; -- 수정된 외래 키 추가
-```
-
-- 'comments' 테이블과 'posts' 테이블의 조인 실행
-
-```
-SELECT comments.\*, posts.title
-FROM comments
-INNER JOIN posts ON comments.post_id = posts.post_id;
-```
-
-- 'comments' 테이블과 'users' 테이블의 조인 실행
-
-```
-SELECT comments.\*, users.username
-FROM comments
-INNER JOIN users ON comments.user_id = users.user_id;
-```
-
-## 02 Table 수정
-
-```
-ALTER TABLE users
-ADD COLUMN password VARCHAR(255) NOT NULL AFTER username,
-ADD COLUMN email VARCHAR(255) NOT NULL AFTER password;
-
-```
-
-```
-- 이전에 존재하던 comments 테이블 삭제
-DROP TABLE IF EXISTS comments;
-
-- comments 테이블 재생성
-CREATE TABLE comments (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name TEXT,
-    user_id INT,
-    post_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (post_id) REFERENCES posts(post_id)
-);
-
-
+최종
+| Field | Type | Null | Key | Default | Extra |
+|---------|------|------|-----|---------|----------------|
+| id | int | NO | PRI | NULL | auto_increment |
+| name | text | YES | | NULL | |
+| user_id | int | YES | MUL | NULL | |
+| post_id | int | YES | MUL | NULL | |
 ```
