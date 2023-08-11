@@ -34,14 +34,12 @@ ADD COLUMN post_id INT AUTO_INCREMENT PRIMARY KEY FIRST;
 
 ```
 
-+------------+--------------+------+-----+-------------------+-------------------+
-| Field | Type | Null | Key | Default | Extra |
-+------------+--------------+------+-----+-------------------+-------------------+
-| id | int | NO | PRI | NULL | auto_increment |
-| title | varchar(255) | NO | | NULL | |
-| content | text | NO | | NULL | |
-| created_at | timestamp | YES | | CURRENT_TIMESTAMP| DEFAULT_GENERATED |
-+------------+--------------+------+-----+-------------------+-------------------+
+| Field      | Type         | Null | Key | Default           | Extra             |
+| ---------- | ------------ | ---- | --- | ----------------- | ----------------- |
+| id         | int          | NO   | PRI | NULL              | auto_increment    |
+| title      | varchar(255) | NO   |     | NULL              |                   |
+| content    | text         | NO   |     | NULL              |                   |
+| created_at | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
 
 ## 2. Table: users 외래 키 제약 조건(Foreign Key Constraints)은 참조하는 테이블 생성
 
@@ -54,13 +52,11 @@ CREATE TABLE users (
 
 ```
 
-+------------+--------------+------+-----+-------------------+-------------------+
-| Field | Type | Null | Key | Default | Extra |
-+------------+--------------+------+-----+-------------------+-------------------+
-| user_id | int | NO | PRI | NULL | auto_increment |
-| username | varchar(255) | NO | | NULL | |
-| created_at | timestamp | YES | | CURRENT_TIMESTAMP| DEFAULT_GENERATED |
-+------------+--------------+------+-----+-------------------+-------------------+
+| Field      | Type         | Null | Key | Default           | Extra             |
+| ---------- | ------------ | ---- | --- | ----------------- | ----------------- |
+| user_id    | int          | NO   | PRI | NULL              | auto_increment    |
+| username   | varchar(255) | NO   |     | NULL              |                   |
+| created_at | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
 
 ## 3. Table: comments 테이블 생성
 
@@ -85,10 +81,10 @@ SHOW COLUMNS FROM comments;
 
 +------------+-----------+------+-----+-------------------+-------------------+
 | Field | Type | Null | Key | Default | Extra |
-+------------+-----------+------+-----+-------------------+-------------------+
+| Field | Type | Null | Key | Default | Extra |
+|------------|--------------|------|-----|-------------------|-------------------|
 | comment_id | int | NO | PRI | NULL | auto_increment |
 | content | text | NO | | NULL | |
 | post_id | int | YES | MUL | NULL | |
 | user_id | int | YES | MUL | NULL | |
 | created_at | timestamp | YES | | CURRENT_TIMESTAMP| DEFAULT_GENERATED |
-+------------+-----------+------+-----+-------------------+-------------------+
