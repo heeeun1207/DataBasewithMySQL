@@ -40,7 +40,7 @@ ADD COLUMN post_id INT AUTO_INCREMENT PRIMARY KEY FIRST;
 | id | int | NO | PRI | NULL | auto_increment |
 | title | varchar(255) | NO | | NULL | |
 | content | text | NO | | NULL | |
-| created_at | timestamp | YES | | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| created_at | timestamp | YES | | CURRENT_TIMESTAMP| DEFAULT_GENERATED |
 +------------+--------------+------+-----+-------------------+-------------------+
 
 ## 2. Table: users 외래 키 제약 조건(Foreign Key Constraints)은 참조하는 테이블 생성
@@ -59,7 +59,7 @@ CREATE TABLE users (
 +------------+--------------+------+-----+-------------------+-------------------+
 | user_id | int | NO | PRI | NULL | auto_increment |
 | username | varchar(255) | NO | | NULL | |
-| created_at | timestamp | YES | | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| created_at | timestamp | YES | | CURRENT_TIMESTAMP| DEFAULT_GENERATED |
 +------------+--------------+------+-----+-------------------+-------------------+
 
 ## 3. Table: comments 테이블 생성
@@ -77,6 +77,8 @@ CREATE TABLE comments (
 
 ```
 
+해당 테이블 열 확인하기
+
 ```
 SHOW COLUMNS FROM comments;
 ```
@@ -88,5 +90,5 @@ SHOW COLUMNS FROM comments;
 | content | text | NO | | NULL | |
 | post_id | int | YES | MUL | NULL | |
 | user_id | int | YES | MUL | NULL | |
-| created_at | timestamp | YES | | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| created_at | timestamp | YES | | CURRENT_TIMESTAMP| DEFAULT_GENERATED |
 +------------+-----------+------+-----+-------------------+-------------------+
