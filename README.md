@@ -79,12 +79,10 @@ CREATE TABLE comments (
 SHOW COLUMNS FROM comments;
 ```
 
-+------------+-----------+------+-----+-------------------+-------------------+
-| Field | Type | Null | Key | Default | Extra |
-| Field | Type | Null | Key | Default | Extra |
-|------------|--------------|------|-----|-------------------|-------------------|
-| comment_id | int | NO | PRI | NULL | auto_increment |
-| content | text | NO | | NULL | |
-| post_id | int | YES | MUL | NULL | |
-| user_id | int | YES | MUL | NULL | |
-| created_at | timestamp | YES | | CURRENT_TIMESTAMP| DEFAULT_GENERATED |
+| Field      | Type      | Null | Key | Default           | Extra             |
+| ---------- | --------- | ---- | --- | ----------------- | ----------------- |
+| comment_id | int       | NO   | PRI | NULL              | auto_increment    |
+| content    | text      | NO   |     | NULL              |                   |
+| post_id    | int       | YES  | MUL | NULL              |                   |
+| user_id    | int       | YES  | MUL | NULL              |                   |
+| created_at | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
