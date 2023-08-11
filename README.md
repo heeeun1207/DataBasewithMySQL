@@ -76,13 +76,10 @@ CREATE TABLE comments (
 SHOW COLUMNS FROM comments;
 ```
 
-```
 최종
-| Field   | Type         | Null | Key | Default | Extra          |
+| Field | Type | Null | Key | Default | Extra |
 |---------|--------------|------|-----|---------|----------------|
-| id      | int          | NO   | PRI | NULL    | auto_increment |
-| name    | text         | YES  |     | NULL    |                |
-| user_id | int          | YES  | MUL | NULL    |                |
-| post_id | int          | YES  | MUL | NULL    |                |
-
-```
+| id | int | NO | PRI | NULL | auto_increment |
+| name | text | YES | | NULL | |
+| user_id | int | YES | MUL | NULL | |
+| post_id | int | YES | MUL | NULL | |
