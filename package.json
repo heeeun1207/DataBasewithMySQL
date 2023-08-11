@@ -2,9 +2,10 @@
   "name": "databasewithmysql",
   "version": "1.0.0",
   "description": "DBMS: MySQL",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,10 @@
   },
   "homepage": "https://github.com/heeeun1207/DataBasewithMySQL#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "mysql2": "^3.6.0"
   }
 }

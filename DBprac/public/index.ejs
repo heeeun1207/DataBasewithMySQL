@@ -62,11 +62,20 @@
     <header>
         <h1>Simple Bulletin Board</h1>
     </header>
+    <a href="/signup.html">회원 가입</a>
+    <a href="/login.html">로그인</a>
+    <a href="/mypage">마이페이지</a>
+    <!-- 로그아웃 버튼 -->
+    <a href="#" onclick="logout()">로그아웃</a>
+
     <div class="container">
         <% posts.forEach((post) => { %>
         <div class="post">
             <div class="title"><%= post.title %></div>
             <div class="content">
+                <% if (post.username) { %>
+                    <div class="username">작성자: <%= post.username %></div>
+                <% } %>
                 <%= post.content %>
             </div>
         </div>
@@ -75,10 +84,47 @@
     <div class="form-container">
         <h2>Add a New Post</h2>
         <form id="postForm" action="/submit" method="POST">
+            <p><strong>Username:</strong> <%= user.username %></p>
             <input type="text" name="title" placeholder="Title" required>
             <textarea name="content" placeholder="Content" rows="4" required></textarea>
             <button type="submit">Submit</button>
         </form>
     </div>
+    
+<script>
+    //서버에 로그인 상태 확인 요청 보내기
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/checkLoggedIn', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // 로그인 상태인 경우, 테스트 페이지 표시
+            document.querySelector('a[href="/mypage"]').style.display = 'block';
+        } else {
+            // 로그인 상태가 아닌 경우, 테스트 페이지 링크 숨기기
+            document.querySelector('a[href="/mypage"]').style.display = 'none';
+        }
+    };
+    xhr.send();
+
+    function logout() {
+        fetch('/logout', {
+          method: 'POST', 
+        })
+          .then((response) => {
+            if (response.ok) {
+              // 로그아웃 요청이 성공적으로 처리된 경우
+              window.location.href = '/'; 
+            } else {
+              // 로그아웃 요청이 실패한 경우
+              console.error('로그아웃 실패');
+            }
+          })
+          .catch((error) => {
+            // 네트워크 오류 등으로 요청이 실패한 경우
+            console.error('로그아웃 오류:', error);
+          });
+      }
+
+</script>
 </body>
 </html>
