@@ -28,8 +28,6 @@ CREATE TABLE posts (
   user_id int,
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
-
-
 ```
 
 최종
@@ -49,7 +47,6 @@ CREATE TABLE users (
   password varchar(255) NOT NULL,
   email varchar(255) NOT NULL
 );
-
 ```
 
 최종
@@ -71,8 +68,6 @@ CREATE TABLE comments (
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (post_id) REFERENCES posts(post_id)
 );
-
-
 ```
 
 해당 테이블 열 확인하기
@@ -83,10 +78,11 @@ SHOW COLUMNS FROM comments;
 
 ```
 최종
-| Field | Type | Null | Key | Default | Extra |
-|---------|------|------|-----|---------|----------------|
-| id | int | NO | PRI | NULL | auto_increment |
-| name | text | YES | | NULL | |
-| user_id | int | YES | MUL | NULL | |
-| post_id | int | YES | MUL | NULL | |
+| Field   | Type         | Null | Key | Default | Extra          |
+|---------|--------------|------|-----|---------|----------------|
+| id      | int          | NO   | PRI | NULL    | auto_increment |
+| name    | text         | YES  |     | NULL    |                |
+| user_id | int          | YES  | MUL | NULL    |                |
+| post_id | int          | YES  | MUL | NULL    |                |
+
 ```
