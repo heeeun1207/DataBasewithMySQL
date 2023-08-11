@@ -86,3 +86,37 @@ SHOW COLUMNS FROM comments;
 | post_id    | int       | YES  | MUL | NULL              |                   |
 | user_id    | int       | YES  | MUL | NULL              |                   |
 | created_at | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+
+## 8/11 Table 수정
+
+- 'posts' 테이블에 'user_id' 열 추가
+
+```
+ALTER TABLE posts
+ADD COLUMN user_id INT;
+```
+
+- 'comments' 테이블의 외래 키 수정
+
+```
+ALTER TABLE comments
+DROP FOREIGN KEY comments_ibfk_1; -- 기존의 외래 키 제거
+ALTER TABLE comments
+ADD FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE; -- 수정된 외래 키 추가
+```
+
+- 'comments' 테이블과 'posts' 테이블의 조인 실행
+
+```
+SELECT comments.\*, posts.title
+FROM comments
+INNER JOIN posts ON comments.post_id = posts.post_id;
+```
+
+- 'comments' 테이블과 'users' 테이블의 조인 실행
+
+```
+SELECT comments.\*, users.username
+FROM comments
+INNER JOIN users ON comments.user_id = users.user_id;
+```
