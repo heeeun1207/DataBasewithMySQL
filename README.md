@@ -19,6 +19,9 @@
      1)author : id int (NN), name vc(15)(NN), profile vc(100)(NN), created datetime(NN)<br>
      2)topic : id int (NN), title vc(30)(NN), description test (NN), created datetime(NN)<br>
      3)comments: id int (NN),description test (NN), created datetime(NN)<br>
+     4)dormant : author_id (NN), created datetime(NN)<br>
+     - 휴면자 ( 1:1 데이터 관계의 처리를 위해서 테이블을 추가 생성함 ) <br>
+     - author_id 와 동일하게 id값 생성
 
 ---
 
