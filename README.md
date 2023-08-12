@@ -31,6 +31,7 @@
 
 1. 1 : N 관계<br>
 2. 1 : 1 관계<br>
+   ![이미지 설명](/Users/heeeun/Desktop/DataBasewithMySQL/230812/dormant_relationship.png)
 
 - dormant는 author에게 의존하고있다.<br>
   혼자서도 잘 지낼 수있는 테이블 : 부모테이블 <br>
