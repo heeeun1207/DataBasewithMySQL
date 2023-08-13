@@ -72,3 +72,92 @@
 이행적 종속성<br>
 같은 성격의 컬럼을 어떻게 분류할 지 전략을 짜야한다.
 ![Third Normal Form](Thrid_normal_form.png)
+
+---
+
+## denormalization : 역정규화
+
+```
+DROP TABLE IF EXISTS `author`;
+CREATE TABLE `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `profile` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `author` VALUES (1,'kim','developer'),(2,'lee','DBA');
+
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `tag` VALUES (1,'rdb'),(2,'free'),(3,'commercial');
+
+DROP TABLE IF EXISTS `topic`;
+CREATE TABLE `topic` (
+  `title` varchar(50) NOT NULL,
+  `description` text,
+  `created` datetime DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `topic` VALUES ('MySQL','MySQL is ...','2011-01-01 00:00:00',1),('ORACLE','ORACLE is ...','2012-02-03 00:00:00',1),('SQL Server','SQL Server is ..','2013-01-04 00:00:00',2);
+DROP TABLE IF EXISTS `topic_tag_relation`;
+
+CREATE TABLE `topic_tag_relation` (
+  `topic_title` varchar(50) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`topic_title`,`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `topic_tag_relation` VALUES ('MySQL',1),('MySQL',2),('ORACLE',1),('ORACLE',3);
+
+DROP TABLE IF EXISTS `topic_type`;
+CREATE TABLE `topic_type` (
+  `title` varchar(45) NOT NULL,
+  `type` char(6) NOT NULL,
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`title`,`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `topic_type` VALUES ('MySQL','online',0),('MySQL','paper',10000),('ORACLE','online',15000);
+```
+
+### - 목표 : topic_tag_relation.topic_title 의 값이 MySQL 인 태그의 이름을 알고 싶다.
+
+```
+mysql> SELECT tag.name  FROM topic_tag_relation AS TTR LEFT JOIN tag ON TTR.tag_id = tag.id WHERE topic_title="MySQL";
+```
+
+---
+
+## 컬럼을 조작해서 JOIN 줄이기
+
+```
+ALTER TABLE `topic_tag_relation` ADD COLUMN `tag_name` VARCHAR(45) NULL AFTER `tag_id`;
+
+UPDATE `topic_tag_relation` SET `tag_name` = 'rdb' WHERE (`topic_title` = 'MySQL') and (`tag_id` = '1');
+UPDATE `topic_tag_relation` SET `tag_name` = 'free' WHERE (`topic_title` = 'MySQL') and (`tag_id` = '2');
+UPDATE `topic_tag_relation` SET `tag_name` = 'rdb' WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '1');
+UPDATE `topic_tag_relation` SET `tag_name` = 'commercial' WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '3');
+```
+
+### - 목표 : 각각의 저자가 몇개의 글을 작성했는지를 목록으로 표현한다.
+
+```
+SELECT
+    author_id, COUNT(author_id)
+FROM
+    topic
+GROUP BY author_id;
+```
+
+| author_id | COUNT(author_id) |
+| --------- | ---------------- |
+| 1         | 2                |
+| 2         | 1                |
