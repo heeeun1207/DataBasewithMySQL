@@ -1,7 +1,9 @@
 ## ERD 계획 단계
 
+- 업무파악<br>
 - 개념적 데이터 모델링<br>
-- 논리적 데이터 모델링
+- 논리적 데이터 모델링<br>
+- 물리적 데이터 모델링<br>
 
 ### 230812
 
@@ -39,7 +41,34 @@
   그런 맥락에서, 저자테이블의 PK / 휴면테이블 FK 를 설정하자.<br>
 
 3. N : M 관계<br>
+   Mapping table
 
 ---
 
 ![ERD](ERD230812.png)
+
+### 230813
+
+## First Normal Form 제 1 정규화
+
+## Automatic columns
+
+즉, 각 컬럼의 값들이 원자적이여야한다. = 중복된 값을 제거하고, 각 값을 하나만 가져라
+
+---
+
+## Second Normal Form 제 2 정규화
+
+## No partial dependencies
+
+부분 종속성이 없어야 한다. = 표의 기본키 중에서 중복키가 없어야한다.
+
+---
+
+## Third Normal Form 제 3 정규화
+
+## No transitive dependencies
+
+이행적 종속성<br>
+같은 성격의 컬럼을 어떻게 분류할 지 전략을 짜야한다.
+![Third Normal Form](Thrid_normal_form.png)
