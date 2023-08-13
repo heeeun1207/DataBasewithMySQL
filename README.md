@@ -197,6 +197,8 @@ GROUP BY author_id;
 
 1. 3개의 테이블 topic_tag_relation(tag,topic 조인하기)
 
+- 역정규화 이전 쿼리
+
 ```
 SELECT  *
 FROM
