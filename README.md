@@ -134,6 +134,11 @@ INSERT INTO `topic_type` VALUES ('MySQL','online',0),('MySQL','paper',10000),('O
 mysql> SELECT tag.name  FROM topic_tag_relation AS TTR LEFT JOIN tag ON TTR.tag_id = tag.id WHERE topic_title="MySQL";
 ```
 
+| name |
+| ---- |
+| rdb  |
+| free |
+
 ---
 
 ## 컬럼을 조작해서 JOIN 줄이기
