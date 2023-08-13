@@ -188,3 +188,79 @@ GROUP BY author_id;
 | --------- | ---------------- |
 | 1         | 2                |
 | 2         | 1                |
+
+<br><br>
+
+## 관계의 역정규화
+
+---
+
+1. 3개의 테이블 topic_tag_relation(tag,topic 조인하기)
+
+```
+SELECT  *
+FROM
+   topic_tag_relation AS TTR
+LEFT JOIN tag ON TTR.tag_id = tag.id
+LEFT JOIN topic ON TTR.topic_title = topic.title
+WHERE author_id = 1;
+```
+
+2. 조인 줄이기
+
+테이블 : topic_tag_relation<br>
+| topic_title | tag_id | tag_name |
+|-------------|--------|------------|
+| MySQL | 1 | rdb |
+| MySQL | 2 | free |
+| ORACLE | 1 | rdb |
+| ORACLE | 3 | commercial |
+
+- 역정규화 쿼리
+
+```
+ALTER TABLE `topic_tag_relation` ADD COLUMN `author_id` INT NULL AFTER `tag_name`;
+
+UPDATE `topic_tag_relation`
+SET `author_id` = '1'
+WHERE (`topic_title` = 'MySQL') and (`tag_id` = '1');
+
+UPDATE `topic_tag_relation`
+SET `author_id` = '1'
+WHERE (`topic_title` = 'MySQL') and (`tag_id` = '2');
+
+UPDATE `topic_tag_relation`
+SET `author_id` = '1'
+WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '1');
+
+UPDATE `topic_tag_relation`
+SET `author_id` = '1'
+WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '3');
+```
+
+테이블 : topic_tag_relation<br>
+| topic_title | tag_id | tag_name | author_id |
+|-------------|--------|------------|-----------|
+| MySQL | 1 | rdb | 1 |
+| MySQL | 2 | free | 1 |
+| ORACLE | 1 | rdb | 1 |
+| ORACLE | 3 | commercial | 1 |
+
+- 역정규화 이후 쿼리
+
+```
+SELECT
+    tag.id, tag.name
+FROM
+    topic_tag_relation AS TTR
+LEFT JOIN tag ON TTR.tag_id = tag.id
+WHERE TTR.author_id = 1;
+```
+
+동일한 결과값 <br>
+| id | name |
+| --- | ---------- |
+| 1 | rdb |
+| 2 | free |
+| 1 | rdb |
+| 3 | commercial |
