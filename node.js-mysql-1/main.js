@@ -21,21 +21,16 @@ var app = http.createServer(function (request, response) {
   //pathname === '/'최상위 경로, 즉 http://localhost:3000 을 표시하는 부분
   if (pathname === '/') {
     if (queryData.id === undefined) {
-      // fs.readdir('./data', function (error, filelist) {
-      //   var title = 'Welcome';
-      //   var description = 'Hello, Node.js';
-      //   var list = template.list(filelist);
-      //   var html = template.HTML(title, list,
-      //     `<h2>${title}</h2>${description}`,
-      //     `<a href="/create">create</a>`
-      //   );
-      //   response.writeHead(200);
-      //   response.end(html);
-      // });
       db.query(`SELECT * FROM topic`, function (error, topics) {
-        console.log(topics); // 토픽의 데이터를 가져와서 확인하고 이용해보자. 
+        var title = 'Welcome';
+        var description = 'Hello, Node.js';
+        var list = template.list(topics);
+        var html = template.HTML(title, list,
+          `<h2>${title}</h2>${description}`,
+          `<a href="/create">create</a>`
+        );
         response.writeHead(200);
-        response.end('Success'); // 홈페이지 출력 
+        response.end(html);
       });
     } else {
       fs.readdir('./data', function (error, filelist) {
